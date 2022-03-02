@@ -1,0 +1,354 @@
+﻿@page "/createquiz/{story}"
+
+<RadzenCard>
+
+    <RadzenTextBox Class="w-100" Value="@Story" />
+    @if (StoryBody != null)
+    {
+        <RadzenTextArea Class="w-100" Value="@StoryBody.Head" />
+    }
+    <RadzenCard>
+        <div class="row">
+            <label>Soru 1:</label>
+            <RadzenTextBox Class="w-100" @bind-Value="Question1.Name" />
+        </div>
+        <div class="row">
+            <label>A:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer1.Name" />
+        </div>
+        <div class="row">
+            <label>B:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer2.Name" />
+            <br />
+        </div>
+        <div class="row">
+            <label>C:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer3.Name" />
+        </div>
+        <div class="row">
+            <label>D:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer4.Name" />
+        </div>
+        <div class="row">
+            <label>Doğru Cevap:</label>
+            <RadzenRadioButtonList @bind-Value="@CorrectAnswer1" TValue="int" Orientation="Radzen.Orientation.Horizontal">
+                <Items>
+                    <RadzenRadioButtonListItem Text="A:" Value="1" />
+                    <RadzenRadioButtonListItem Text="B:" Value="2" />
+                    <RadzenRadioButtonListItem Text="C:" Value="3" />
+                    <RadzenRadioButtonListItem Text="D:" Value="3" />
+                </Items>
+            </RadzenRadioButtonList>
+        </div>
+    </RadzenCard>
+    <RadzenCard>
+        <div class="row">
+            <label>Soru 2:</label>
+            <RadzenTextBox Class="w-100" @bind-Value="Question2.Name" />
+        </div>
+        <div class="row">
+            <label>A:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer5.Name" />
+        </div>
+        <div class="row">
+            <label>B:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer6.Name" />
+            <br />
+        </div>
+        <div class="row">
+            <label>C:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer7.Name" />
+        </div>
+        <div class="row">
+            <label>D:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer8.Name" />
+        </div>
+        <div class="row">
+            <label>Doğru Cevap:</label>
+            <RadzenRadioButtonList @bind-Value="CorrectAnswer2" TValue="int" Orientation="Radzen.Orientation.Horizontal">
+                <Items>
+                    <RadzenRadioButtonListItem Text="A:" Value="1" />
+                    <RadzenRadioButtonListItem Text="B:" Value="2" />
+                    <RadzenRadioButtonListItem Text="C:" Value="3" />
+                    <RadzenRadioButtonListItem Text="D:" Value="3" />
+                </Items>
+            </RadzenRadioButtonList>
+        </div>
+    </RadzenCard>
+    <RadzenCard>
+        <div class="row">
+            <label>Soru 3:</label>
+            <RadzenTextBox Class="w-100" @bind-Value="Question3.Name" />
+        </div>
+        <div class="row">
+            <label>A:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer9.Name" />
+        </div>
+        <div class="row">
+            <label>B:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer10.Name" />
+            <br />
+        </div>
+        <div class="row">
+            <label>C:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer11.Name" />
+        </div>
+        <div class="row">
+            <label>D:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer12.Name" />
+        </div>
+        <div class="row">
+            <label>Doğru Cevap:</label>
+            <RadzenRadioButtonList @bind-Value="CorrectAnswer3" TValue="int" Orientation="Radzen.Orientation.Horizontal">
+                <Items>
+                    <RadzenRadioButtonListItem Text="A:" Value="1" />
+                    <RadzenRadioButtonListItem Text="B:" Value="2" />
+                    <RadzenRadioButtonListItem Text="C:" Value="3" />
+                    <RadzenRadioButtonListItem Text="D:" Value="3" />
+                </Items>
+            </RadzenRadioButtonList>
+        </div>
+    </RadzenCard>
+    <RadzenCard>
+        <div class="row">
+            <label>Soru 4:</label>
+            <RadzenTextBox Class="w-100" @bind-Value="Question4.Name" />
+        </div>
+        <div class="row">
+            <label>A:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer13.Name" />
+        </div>
+        <div class="row">
+            <label>B:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer14.Name" />
+            <br />
+        </div>
+        <div class="row">
+            <label>C:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer15.Name" />
+        </div>
+        <div class="row">
+            <label>D:</label>
+            <RadzenTextBox Class="w-50" @bind-Value="Answer16.Name" />
+        </div>
+        <div class="row">
+            <label>Doğru Cevap:</label>
+            <RadzenRadioButtonList @bind-Value="CorrectAnswer4" TValue="int" Orientation="Radzen.Orientation.Horizontal">
+                <Items>
+                    <RadzenRadioButtonListItem Text="A:" Value="1" />
+                    <RadzenRadioButtonListItem Text="B:" Value="2" />
+                    <RadzenRadioButtonListItem Text="C:" Value="3" />
+                    <RadzenRadioButtonListItem Text="D:" Value="3" />
+                </Items>
+            </RadzenRadioButtonList>
+        </div>
+    </RadzenCard>
+
+
+
+    <RadzenButton Text="Sınav Oluştur" Class="w-50" Click="@(() => Create())" />
+
+
+</RadzenCard>
+
+
+@code {
+    [Parameter]
+    public string Story { get; set; }
+
+    [Inject]
+    public IQuizHttpService Service { get; set; }
+
+    public QuestionDto Question1 { get; set; } = new QuestionDto();
+    public QuestionDto Question2 { get; set; } = new QuestionDto();
+    public QuestionDto Question3 { get; set; } = new QuestionDto();
+    public QuestionDto Question4 { get; set; } = new QuestionDto();
+
+    public AnswerDto Answer1 { get; set; } = new AnswerDto();
+    public AnswerDto Answer2 { get; set; } = new AnswerDto();
+    public AnswerDto Answer3 { get; set; } = new AnswerDto();
+    public AnswerDto Answer4 { get; set; } = new AnswerDto();
+    public AnswerDto Answer5 { get; set; } = new AnswerDto();
+    public AnswerDto Answer6 { get; set; } = new AnswerDto();
+    public AnswerDto Answer7 { get; set; } = new AnswerDto();
+    public AnswerDto Answer8 { get; set; } = new AnswerDto();
+    public AnswerDto Answer9 { get; set; } = new AnswerDto();
+    public AnswerDto Answer10 { get; set; } = new AnswerDto();
+    public AnswerDto Answer11 { get; set; } = new AnswerDto();
+    public AnswerDto Answer12 { get; set; } = new AnswerDto();
+    public AnswerDto Answer13 { get; set; } = new AnswerDto();
+    public AnswerDto Answer14 { get; set; } = new AnswerDto();
+    public AnswerDto Answer15 { get; set; } = new AnswerDto();
+    public AnswerDto Answer16 { get; set; } = new AnswerDto();
+
+    public int CorrectAnswer1 { get; set; }
+    public int CorrectAnswer2 { get; set; }
+    public int CorrectAnswer3 { get; set; }
+    public int CorrectAnswer4 { get; set; }
+
+    public QuizDto StoryBody { get; set; }
+
+    public List<AnswerDto> AnswerList { get; set; } = new List<AnswerDto>();
+
+    public QuizResponseDto Quiz { get; set; } = new QuizResponseDto();
+
+    public List<QuestionDto> QuestionList { get; set; } = new List<QuestionDto>();
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+    [Inject]
+    public IQuizHttpService service { get; set; }
+    [Inject]
+    public IToastService toastService { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await service.GetStoryBodys(Story);
+        var dto = new QuizDto();
+        dto.Head = result.Head;
+        StoryBody = dto;
+    }
+
+    private async Task Create()
+    {
+        Quiz.StoryName = Story;
+        var quizResult = await Service.CreateQuiz(Quiz);
+        Question1.QuizId = quizResult.Id;
+        Question2.QuizId = quizResult.Id;
+        Question3.QuizId = quizResult.Id;
+        Question4.QuizId = quizResult.Id;
+        QuestionList.Add(Question1);
+        QuestionList.Add(Question2);
+        QuestionList.Add(Question3);
+        QuestionList.Add(Question4);
+        var questionResult = await Service.CreateQuestion(QuestionList);
+        foreach (var item in questionResult)
+        {
+            if (item.Name == Question1.Name)
+            {
+                Answer1.QuestionId = item.Id;
+                Answer2.QuestionId = item.Id;
+                Answer3.QuestionId = item.Id;
+                Answer4.QuestionId = item.Id;
+            }
+            if (item.Name == Question2.Name)
+            {
+                Answer5.QuestionId = item.Id;
+                Answer6.QuestionId = item.Id;
+                Answer7.QuestionId = item.Id;
+                Answer8.QuestionId = item.Id;
+            }
+            if (item.Name == Question3.Name)
+            {
+                Answer9.QuestionId = item.Id;
+                Answer10.QuestionId = item.Id;
+                Answer11.QuestionId = item.Id;
+                Answer12.QuestionId = item.Id;
+            }
+            if (item.Name == Question4.Name)
+            {
+                Answer13.QuestionId = item.Id;
+                Answer14.QuestionId = item.Id;
+                Answer15.QuestionId = item.Id;
+                Answer16.QuestionId = item.Id;
+            }
+        }
+        switch (CorrectAnswer1)
+        {
+            case 1:
+                Answer1.IsTrue = true;
+                break;
+            case 2:
+                Answer2.IsTrue = true;
+                break;
+            case 3:
+                Answer3.IsTrue = true;
+                break;
+            case 4:
+                Answer4.IsTrue = true;
+                break;
+            default:
+                // code block
+                break;
+        }
+        switch (CorrectAnswer2)
+        {
+            case 1:
+                Answer5.IsTrue = true;
+                break;
+            case 2:
+                Answer6.IsTrue = true;
+                break;
+            case 3:
+                Answer7.IsTrue = true;
+                break;
+            case 4:
+                Answer8.IsTrue = true;
+                break;
+            default:
+                // code block
+                break;
+        }
+        switch (CorrectAnswer3)
+        {
+            case 1:
+                Answer9.IsTrue = true;
+                break;
+            case 2:
+                Answer10.IsTrue = true;
+                break;
+            case 3:
+                Answer11.IsTrue = true;
+                break;
+            case 4:
+                Answer12.IsTrue = true;
+                break;
+            default:
+                // code block
+                break;
+        }
+        switch (CorrectAnswer4)
+        {
+            case 13:
+                Answer1.IsTrue = true;
+                break;
+            case 14:
+                Answer2.IsTrue = true;
+                break;
+            case 15:
+                Answer3.IsTrue = true;
+                break;
+            case 16:
+                Answer4.IsTrue = true;
+                break;
+            default:
+                // code block
+                break;
+        }
+
+        AnswerList.Add(Answer1);
+        AnswerList.Add(Answer2);
+        AnswerList.Add(Answer3);
+        AnswerList.Add(Answer4);
+        AnswerList.Add(Answer5);
+        AnswerList.Add(Answer6);
+        AnswerList.Add(Answer7);
+        AnswerList.Add(Answer8);
+        AnswerList.Add(Answer9);
+        AnswerList.Add(Answer10);
+        AnswerList.Add(Answer11);
+        AnswerList.Add(Answer12);
+        AnswerList.Add(Answer13);
+        AnswerList.Add(Answer14);
+        AnswerList.Add(Answer15);
+        AnswerList.Add(Answer16);
+        var answerResult = await Service.CreateAnswer(AnswerList);
+        //-----------------------------------------
+
+        toastService.ShowSuccess("Quiz Succesfully Created!");
+        NavigationManager.NavigateTo("/");
+
+
+    }
+
+}

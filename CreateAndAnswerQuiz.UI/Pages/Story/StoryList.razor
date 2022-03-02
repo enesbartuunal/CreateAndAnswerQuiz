@@ -1,0 +1,53 @@
+﻿@page "/liststory"
+<div class="container">
+    <RadzenButton Text="Sınav Oluştırmak İçin Başlıkları Listele" Class="w-100" Click="@(() => GetAllStory())" />
+    <div class="row py-5">
+        <div class="col">
+            <RadzenCard>
+                @if (Stories != null)
+                {
+                    <div class="container">
+                        @foreach (var item in Stories)
+                        {
+                            <div class="row">
+                                <div>
+                                    @item
+                                </div>
+                                <div>
+                                    <button type="button" class="btn btn-info" @onclick="() => RedirectToUpdate(item)">Sınav Oluştur</button>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                }
+            </RadzenCard>
+
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    public List<string> Stories { get; set; }
+
+    [Inject]
+    public IQuizHttpService Service { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+
+    private async Task GetAllStory()
+    {
+        var data = await Service.GetStorys();
+        Stories = data;
+    }
+
+    private void RedirectToUpdate(string story)
+    {
+        var url = Path.Combine("/createquiz/", story);
+        NavigationManager.NavigateTo(url);
+    }
+}

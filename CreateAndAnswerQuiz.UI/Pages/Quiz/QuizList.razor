@@ -1,0 +1,52 @@
+﻿<h3>QuizList</h3>
+<div class="container">
+    
+    <div class="row py-5">
+        <div class="col">
+            <RadzenCard>
+                @if (Quizess != null)
+                {
+                    <div class="container">
+                        @foreach (var item in Quizess)
+                        {
+                        <div class="row">
+                            <div>
+                                @item.StoryName
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-info" @onclick="() => Delete()">Sınavı Çöz</button>
+                            </div>
+                            <div>
+                                <button type="button" class="btn btn-info" @onclick="() => Delete()">Sil</button>
+                            </div>
+                        </div>
+                        }
+
+                    </div>
+                }
+            </RadzenCard>
+
+        </div>
+    </div>
+</div>
+@code {
+    public List<QuizResponseDto> Quizess { get; set; } = new List<QuizResponseDto>();
+
+    [Inject]
+    public IQuizHttpService Service { get; set; }
+
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        var data = await Service.GetQuizess();
+        Quizess = data;
+    }
+
+    private async Task Delete()
+    {
+
+    }
+}
